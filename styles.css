@@ -1,205 +1,379 @@
-/* CSS BY Beatriz Rogel */
-
-/* IMPORTED FONTS*/
-/* IMPORT "INTER" FROM GOOGLE FONTS */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-
-
-/* CSS RESET */
-/* http://meyerweb.com/eric/tools/css/reset/
-v2.0 | 20110126
-License: none (public domain)
-*/
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-    display: block;
-}
-body {
-    line-height: 1;
-    line-height: 1;
-    font-family: var(--font);
-    background-color: var(--white);
-}
-ol, ul {
-    list-style: none;
-}
-blockquote, q {
-    quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-    content: '';
-    content: none;
-}
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-
-/* ROOT VARIABLES */
+/* GLOBAL ROOT VARIABLES */
 :root {
     --blue: #007BFF;
-    --red: #FF4500;
-    --white: #EAEAEA;
+    --light-blue: rgba(0, 123, 255, 0.5);
+    --white: #FFFFFF;
     --black: #000000;
     --charcoal: #333333;
     --font: "Inter", sans-serif;
 }
-#main-navigation > h2 {
-    position: absolute;   
-    width: 1px;           
-    height: 1px;          
+
+/* RESET & BASE STYLES */
+* {
+    margin: 0;
     padding: 0;
-    margin: -1px;          
-    overflow: hidden;      
-    clip: rect(0, 0, 0, 0); 
-    white-space: nowrap;   
-    border: 0;
+    box-sizing: border-box;
 }
 
-/* GLOBAL STYLES (MOBILE FIRST (SMALL) */
+body {
+    font-family: var(--font);
+    line-height: 1.5;
+    color: var(--charcoal);
+}
 
-/* MIN-WIDTH OF THE PAGE SHOULD NOT GO BELOW 400PX */
-
-/* ADD A DIV WITH THE CLASS OF CONTAINER TO EVERY CONTENT CONTAINER THIS IS ALLOW THE BASE ELEMENTS TO BE 100% WIDTH, BUT CONSTRAIN THE ACTUAL CONTENT TO 90% */
 .container {
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* ADD TO "INNOVATION & INVESTMENT SECTION (Photo by Kevin Matos on Unsplash) */
-#innovation {
-    background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
-        url('images/vanguard-hero.jpg') no-repeat center center/cover;
-    height: 80vh;
-    display: grid;
-    place-items: center;
-    text-align: center;
-    padding: 1rem;
-    overflow: hidden;
-    color: var(--white);
-    position: relative; 
+/* NAVIGATION */
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    position: relative;
+    padding: 0.5rem 1rem;
 }
 
-/* ADD FLOATING SVG LOGO BEFORE THE H1 */
-#innovation::before {
+.nav-container .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.nav-container .logo img {
+    width: 40px;
+    height: 40px;
+}
+
+.nav-container .brand-name {
+    color: var(--blue);
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-left: 0.5rem;
+}
+
+/* NAV LINKS */
+.nav-links {
+    list-style: none;
+    display: none; /* Hidden by default for mobile */
+    flex-direction: column;
+    width: 100%;
+}
+
+.nav-links li {
+    border-bottom: 1px solid var(--light-blue);
+}
+
+.nav-links li a {
+    display: block;
+    padding: 1rem;
+    text-decoration: none;
+    color: var(--white);
+    font-weight: bold;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.nav-links li a:hover {
+    background-color: var(--blue);
+    color: var(--black);
+}
+
+/* HAMBURGER */
+#menu-toggle {
+    display: none;
+}
+
+.hamburger {
+    display: block;
+    cursor: pointer;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: white;
+    position: relative;
+}
+
+.hamburger span::before,
+.hamburger span::after {
     content: "";
     position: absolute;
-    left: -0.5rem;
-    top: 1rem;
-    width: 3.75rem;
-    height: 3.75rem;
-    background: url('images/vanguard-logo.svg') no-repeat center/contain;
+    width: 25px;
+    height: 3px;
+    background: white;
+    left: 0;
+    transition: all 0.3s;
 }
-/* THIS ONE IS DONE FOR YOU */
+
+.hamburger span::before {
+    top: -8px;
+}
+
+.hamburger span::after {
+    top: 8px;
+}
+
+/* TOGGLE NAV */
+#menu-toggle:checked + .hamburger span {
+    background: transparent;
+}
+
+#menu-toggle:checked + .hamburger span::before {
+    transform: rotate(-45deg);
+    top: 0;
+}
+
+#menu-toggle:checked + .hamburger span::after {
+    transform: rotate(45deg);
+    top: 0;
+}
+
+#menu-toggle:checked ~ .nav-links {
+    display: flex;
+}
+
+/* SINGLE BLUE LINE BELOW NAV */
+.nav-line {
+    height: 4px;
+    background-color: var(--blue);
+    filter: blur(2px);
+}
+
+/* INNOVATION SECTION */
+#innovation {
+    width: 100%;                  
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), 
+        url('images/vanguard-hero.jpg') no-repeat center/cover;
+    color: var(--white);
+    padding: 4rem 1rem;           
+}
+
+/* CTA BUTTON */
+.cta-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--blue);
+    color: var(--white);
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+/* RESULTS BAR CHART */
 #bar-chart {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     align-items: flex-end;
-    justify-content: space-around;
     gap: 1rem;
     height: 300px;
-    width: 100%;
-    max-width: 800px;
-    padding: 1rem;
-    position: relative;
 }
-/* ADD ON TRANSITION ON HEIGHT */
+
 .bar {
-    width: 50px;
-    background: var(--charcoal);
+    background-color: var(--charcoal);
     border-radius: 10px;
-    position: relative;
-    transition: ;
     height: 0;
-    transition: height 0.5s ease-in-out; 
-    animation: stepUp 1s ease-in-out forwards; 
+    width: 50px;
+    transition: height 1s ease-in-out;
+    --height: 0;
 }
-/* THIS ONE IS DONE FOR YOU */
+
 .bar::after {
     content: attr(data-year);
-    position: absolute;
-    bottom: -25px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1rem;
-    font-weight: bold;
+    display: block;
+    text-align: center;
+    margin-top: 0.5rem;
     color: var(--white);
 }
-@keyframes stepUp {
-    0% {
-        height: 0;
-    }
-    100% {
-        height: var(--height);
-    }
-}
-/* ADD ANIMATION ON stepUp for 1s ease-in-out forwards */
-.bar {
-    animation: stepUp 1s ease-in-out forwards;
+
+/* EXPERTISE SECTION */
+#expertise {
+    background-color: var(--white);
+    padding: 3rem 1rem;
+    text-align: left;
 }
 
+#expertise.container {
+    max-width: 800px;    
+    margin-left: 0;      
+    padding-right: 2rem; 
+}
 
-/* MEDIA QUERIES (MEDIUM) */ 
+#expertise h2 {
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 1rem;
+    text-align: left;
+}
 
-    #results {
-        grid-template-columns: 1fr 1fr;
-        display: grid;
+#expertise p {
+    font-weight: 400;
+    color: var(--charcoal);
+    text-align: left;
+    max-width: 800px;     
+    line-height: 1.7;
+}
+
+/* SERVICES SECTION */
+#services {
+    background-color: var(--white);
+    padding: 4rem 1rem;
+    text-align: left;
+}
+
+#services h2 {
+    font-weight: bold;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* SERVICES GRID */
+.services-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Mobile first */
+    gap: 1.5rem;
+    justify-items: start;       /* Left align cards */
+}
+
+/* SERVICE CARDS */
+.service-card {
+    background-color: var(--blue);
+    color: var(--white);
+    padding: 1.5rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: transform 0.2s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+}
+
+.service-card h3 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+.service-card p {
+    font-size: 1rem;
+    font-weight: normal;
+    line-height: 1.4;
+}
+
+/* CARD ORDER MOBILE (1 column) */
+.strategic-growth { order: 1; }
+.business-acceleration { order: 2; }
+.exclusive-executive { order: 3; }
+.high-impact { order: 4; }
+.digital-transformation { order: 5; }
+.corporate-innovation { order: 6; }
+
+/* MEDIUM SCREENS: 2 columns */
+@media (min-width: 800px) and (max-width: 1023px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
     }
-    .results-container {
+    /* Column 1 */
+    .strategic-growth { order: 1; }
+    .business-acceleration { order: 2; }
+    .exclusive-executive { order: 3; }
+
+    /* Column 2 */
+    .high-impact { order: 4; }
+    .digital-transformation { order: 5; }
+    .corporate-innovation { order: 6; }
+}
+
+/* LARGE SCREENS: 3 columns */
+@media (min-width: 1024px) {
+    .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        justify-items: start;
+    }
+
+    /* Row 1 */
+    .strategic-growth { order: 1; }
+    .high-impact { order: 2; }
+    .business-acceleration { order: 3; }
+
+    /* Row 2 */
+    .digital-transformation { order: 4; }
+    .exclusive-executive { order: 5; }
+    .corporate-innovation { order: 6; }
+}
+
+/* MEDIA QUERIES: NAV */
+@media (min-width: 800px) {
+    .nav-links {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        width: auto;
     }
-    .results-table {
-        width: 50%;
+    .nav-links li {
+        border: none;
     }
-    .bar-chart {
-        width: 50%;
+    .nav-links li a {
+        padding: 0.5rem 1rem;
+        color: var(--blue);
     }
+    .hamburger {
+        display: none;
+    }
+}
 
-
-/* MEDIA QUERIES (LARGE) */
+/* INNOVATION & CONTAINERS LARGE */
 @media (min-width: 1024px) {
     #innovation {
-        height: 90vh; 
+        height: 90vh;
     }
-
     h1 {
         font-size: 3rem;
     }
-
     h2 {
         font-size: 2rem;
     }
-
     h3 {
         font-size: 1.5rem;
     }
-
     .container {
-        width: 80%; 
+        width: 80%;
+    }
+
+    #expertise.container {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding-left: 8rem;
+        padding-right: 20rem;
+        text-align: left;
+    }
+    #expertise h2 {
+        margin-bottom: 1rem;
+        font-weight: 700;
+        font-size: 2rem;
+        color: black;
+    }
+    #expertise p {
+        font-size: 1.25rem;
+        line-height: 1.7;
+        color: #333;
+        max-width: 60ch;
     }
 }
