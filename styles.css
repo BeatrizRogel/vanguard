@@ -37,7 +37,6 @@ body {
     padding: 0.5rem 1rem;
 }
 
-/* Move only the logo SVG on hover */
 .nav-container:hover .logo img {
     transform: translateY(5px);
     transition: transform 0.5s ease-in-out;
@@ -68,7 +67,7 @@ body {
 /* NAV LINKS */
 .nav-links {
     list-style: none;
-    display: none; /* mobile first */
+    display: none; 
     flex-direction: column;
     width: 100%;
 }
@@ -148,7 +147,6 @@ body {
     display: flex;
 }
 
-/* NAV BLUE LINE WITH REAL BLURRY GLOW */
 .nav-line {
     position: relative;
     height: 4px;
@@ -200,7 +198,6 @@ body {
     display: block;
 }
 
-/* CTA BUTTON */
 .cta-btn {
     display: inline-block;
     margin-top: 1rem;
@@ -218,7 +215,6 @@ body {
     color: var(--white);
 }
 
-/* EXPERTISE SECTION */
 #expertise {
     background-color: var(--white);
     padding: 3rem 1rem;
@@ -319,7 +315,7 @@ body {
     display: flex;
     gap: 3rem;
     flex-wrap: wrap;
-    align-items: flex-start; /* align both table and chart at the top */
+    align-items: flex-start; 
 }
 
 .profits-wrapper h3 {
@@ -355,7 +351,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: flex-start; /* ensure content starts from top */
+    justify-content: flex-start; 
 }
 .growth-wrapper h3 {
     text-align: left;
@@ -365,31 +361,28 @@ body {
 }
 
 #bar-chart {
-    display: flex;            /* flex for bars */
-    align-items: flex-end;    /* bars anchored at bottom */
+    display: flex;            
+    align-items: flex-end;    
     gap: 2rem;    
-    transform: translateY(-60px); /* move chart higher to align with table (desktop only) */
+    transform: translateY(-60px); 
 }
 
-/* Wrapper for each bar + year */
 .bar-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-
-/* Individual bars */
 .bar {
     width: 50px;
     background-color: var(--charcoal);
     border-radius: 10px 10px 0 0;
-    height: 300px; /* max height */
-    transform: scaleY(0); /* start collapsed */
-    transform-origin: bottom; /* grow from bottom */
+    height: 300px; 
+    transform: scaleY(0); 
+    transform-origin: bottom;
     animation: grow 1s ease-out forwards;
 }
 
-/* Set different heights using scale for each bar */
+
 .bar-wrapper:nth-child(1) .bar { --scale: 0.3; }
 .bar-wrapper:nth-child(2) .bar { --scale: 0.5; }
 .bar-wrapper:nth-child(3) .bar { --scale: 0.7; }
@@ -401,7 +394,7 @@ body {
     to { transform: scaleY(var(--scale)); }
 }
 
-/* Year labels below bars */
+
 .bar::after {
     content: attr(data-year);
     display: block;
@@ -445,12 +438,12 @@ body {
     }
 }
 
-/* TABLET (800–1023px): 2 Columns, bars next to table and aligned top */
+/* TABLET (800–1023px) */
 @media (min-width: 800px) and (max-width: 1023px) {
     .results-wrapper {
         flex-direction: row;
         gap: 2rem;
-        align-items: flex-start; /* top alignment */
+        align-items: flex-start; 
         justify-content: flex-start;
     }
 
@@ -461,8 +454,8 @@ body {
     }
 
     #bar-chart {
-        transform: none !important; /* remove desktop offset */
-        align-self: flex-start;      /* align top with table */
+        transform: none !important; 
+        align-self: flex-start;      
     }
 
     .services-grid {
@@ -479,7 +472,7 @@ body {
     .service-card:nth-of-type(6) { grid-column: 2; grid-row: 3; }
 }
 
-/* DESKTOP (1024px+) 3 Columns */
+/* DESKTOP (1024px+)*/
 @media (min-width: 1024px) {
     #expertise.container,
     #services.container {
@@ -520,9 +513,9 @@ body {
 
 /* CONTACT US SECTION */
 #contact-us {
-    background-color: #000; /* black background */
-    color: #fff; /* white text */
-    padding: 4rem 1rem;
+    background-color: #000;
+    color: #fff;
+    padding-bottom: 3rem;
 }
 
 #contact-us .container {
@@ -565,20 +558,19 @@ body {
 
 .contact-form input,
 .contact-form textarea {
-    background-color: #fff; /* white boxes */
-    border: 1px solid #fff; /* initial white border */
+    background-color: #fff; 
+    border: 1px solid #fff; 
     padding: 0.75rem;
     font-size: 1rem;
-    border-radius: 0; /* squared corners */
+    border-radius: 0; 
     outline: none;
     transition: border 0.3s ease;
-    color: #000; /* text inside input */
-    resize: none;
+    color: #000;
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
-    border: 2px solid var(--blue); /* blue outline on focus */
+    border: 2px solid var(--blue); 
 }
 
 .contact-form textarea {
@@ -604,28 +596,34 @@ body {
 }
 
 footer {
-    background-color: #000;       /* black background */
-    padding: 0.5rem 0;            /* less padding, moves content lower */
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    font-size: 0.75rem;
+    padding-top: 4rem;
+    padding-top: 5rem;
+
+     
+    padding-bottom: 0.25rem;
+
     display: flex;
     flex-direction: column;
-    align-items: center;          /* center horizontally */
-    justify-content: flex-end;    /* push text toward bottom */
-    text-align: center;           /* center text */
-    gap: 0.1rem;                  /* smaller space between lines */
-    color: #fff;
-    font-size: 0.75rem;           /* smaller text */
+    justify-content: flex-end;   
+    align-items: center;
+
+    min-height: 110px;      
 }
 
 footer p {
-    margin: 0;                     /* remove default margins */
+    margin: 0 !important;           
+    padding: 0 !important;
 }
 
 footer a {
     color: var(--blue);
     text-decoration: underline;
+    font-size: inherit;
 }
-
-
 
 /* Responsive */
 @media (max-width: 1023px) {
