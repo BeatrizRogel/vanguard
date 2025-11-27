@@ -1,9 +1,9 @@
 /* GLOBAL ROOT VARIABLES */
 :root {
     --blue: #007BFF;
-    --light-blue: rgba(0, 123, 255, 0.5);
     --white: #FFFFFF;
     --black: #000000;
+    --red: #FF4500; 
     --charcoal: #333333;
     --font: "Inter", sans-serif;
 }
@@ -37,6 +37,16 @@ body {
     padding: 0.5rem 1rem;
 }
 
+/* Move only the logo SVG on hover */
+.nav-container:hover .logo img {
+    transform: translateY(5px);
+    transition: transform 0.5s ease-in-out;
+}
+.nav-container .logo img {
+    transition: transform 0.5s ease-in-out;
+}
+
+/* Logo container */
 .nav-container .logo {
     display: flex;
     align-items: center;
@@ -58,13 +68,13 @@ body {
 /* NAV LINKS */
 .nav-links {
     list-style: none;
-    display: none; /* Hidden by default for mobile */
+    display: none; /* mobile first */
     flex-direction: column;
     width: 100%;
 }
 
 .nav-links li {
-    border-bottom: 1px solid var(--light-blue);
+    border-bottom: 1px solid var(--blue);
 }
 
 .nav-links li a {
@@ -138,25 +148,56 @@ body {
     display: flex;
 }
 
-/* SINGLE BLUE LINE BELOW NAV */
+/* NAV BLUE LINE WITH REAL BLURRY GLOW */
 .nav-line {
+    position: relative;
     height: 4px;
     background-color: var(--blue);
-    filter: blur(2px);
 }
 
-/* INNOVATION SECTION */
+.nav-line::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    transform: translateY(-50%);
+    background-color: var(--blue);
+    filter: blur(12px);
+    opacity: 0.7;
+    z-index: -1;
+}
+
+/* INNOVATION SECTION (Hero) */
 #innovation {
-    width: 100%;                  
-    text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), 
+    text-align: center;
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
         url('images/vanguard-hero.jpg') no-repeat center/cover;
     color: var(--white);
-    padding: 4rem 1rem;           
+    padding: 4rem 1rem;
+}
+
+.hero-text {
+    text-align: center;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    margin: 1rem 0;
+    max-width: 800px;
+}
+
+.hero-text .line1 {
+    display: block;
+    white-space: nowrap;
+}
+
+.hero-text .line2 {
+    display: block;
 }
 
 /* CTA BUTTON */
@@ -169,31 +210,11 @@ body {
     text-decoration: none;
     font-weight: bold;
     border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
-/* RESULTS BAR CHART */
-#bar-chart {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    align-items: flex-end;
-    gap: 1rem;
-    height: 300px;
-}
-
-.bar {
-    background-color: var(--charcoal);
-    border-radius: 10px;
-    height: 0;
-    width: 50px;
-    transition: height 1s ease-in-out;
-    --height: 0;
-}
-
-.bar::after {
-    content: attr(data-year);
-    display: block;
-    text-align: center;
-    margin-top: 0.5rem;
+.cta-btn:hover {
+    background-color: var(--red);
     color: var(--white);
 }
 
@@ -201,13 +222,6 @@ body {
 #expertise {
     background-color: var(--white);
     padding: 3rem 1rem;
-    text-align: left;
-}
-
-#expertise.container {
-    max-width: 800px;    
-    margin-left: 0;      
-    padding-right: 2rem; 
 }
 
 #expertise h2 {
@@ -217,15 +231,26 @@ body {
     text-align: left;
 }
 
-#expertise p {
-    font-weight: 400;
-    color: var(--charcoal);
-    text-align: left;
-    max-width: 800px;     
+#expertise p.expertise-text {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 1.25rem;
     line-height: 1.7;
+    color: #333;
+    margin: 1rem 0;
+    text-align: left;
+    max-width: 72ch;
+    word-break: normal;
 }
 
-/* SERVICES SECTION */
+@media (max-width: 799px) {
+    #expertise p.expertise-text {
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+}
+
+/* SERVICES */
 #services {
     background-color: var(--white);
     padding: 4rem 1rem;
@@ -238,15 +263,12 @@ body {
     margin-bottom: 2rem;
 }
 
-/* SERVICES GRID */
 .services-grid {
     display: grid;
-    grid-template-columns: 1fr; /* Mobile first */
-    gap: 1.5rem;
-    justify-items: start;       /* Left align cards */
+    grid-template-columns: 1fr;
+    gap: 1rem;
 }
 
-/* SERVICE CARDS */
 .service-card {
     background-color: var(--blue);
     color: var(--white);
@@ -254,7 +276,6 @@ body {
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     transition: transform 0.2s ease;
 }
 
@@ -265,115 +286,380 @@ body {
 .service-card h3 {
     font-size: 1.25rem;
     font-weight: bold;
-    margin-bottom: 0.5rem;
-    line-height: 1.2;
+    margin-bottom: 0.75rem;
 }
 
 .service-card p {
     font-size: 1rem;
-    font-weight: normal;
     line-height: 1.4;
 }
 
-/* CARD ORDER MOBILE (1 column) */
-.strategic-growth { order: 1; }
-.business-acceleration { order: 2; }
-.exclusive-executive { order: 3; }
-.high-impact { order: 4; }
-.digital-transformation { order: 5; }
-.corporate-innovation { order: 6; }
-
-/* MEDIUM SCREENS: 2 columns */
-@media (min-width: 800px) and (max-width: 1023px) {
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-    }
-    /* Column 1 */
-    .strategic-growth { order: 1; }
-    .business-acceleration { order: 2; }
-    .exclusive-executive { order: 3; }
-
-    /* Column 2 */
-    .high-impact { order: 4; }
-    .digital-transformation { order: 5; }
-    .corporate-innovation { order: 6; }
+/* PROVEN RESULTS SECTION */
+#results {
+    background-color: var(--blue);
+    color: var(--white);
+    padding: 4rem 0;
 }
 
-/* LARGE SCREENS: 3 columns */
-@media (min-width: 1024px) {
-    .services-grid {
-        grid-template-columns: repeat(3, 1fr);
+#results .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+#results h2,
+#results p {
+    text-align: left;
+    max-width: 800px;
+    margin-bottom: 1rem;
+}
+
+.results-wrapper {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+    align-items: flex-start; /* align both table and chart at the top */
+}
+
+.profits-wrapper h3 {
+    margin-bottom: 1rem;
+}
+
+#results table {
+    background-color: var(--black);
+    color: var(--white);
+    border-collapse: collapse;
+    width: 400px;
+}
+
+#results table th,
+#results table td {
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 0.5rem 1rem;
+    text-align: center;
+}
+
+#results table tbody tr:nth-child(2),
+#results table tbody tr:nth-child(4) {
+    background-color: var(--charcoal);
+}
+
+.growth-wrapper h3 {
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+/* BAR CHART */
+.growth-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start; /* ensure content starts from top */
+}
+.growth-wrapper h3 {
+    text-align: left;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    color: var(--white);
+}
+
+#bar-chart {
+    display: flex;            /* flex for bars */
+    align-items: flex-end;    /* bars anchored at bottom */
+    gap: 2rem;    
+    transform: translateY(-60px); /* move chart higher to align with table (desktop only) */
+}
+
+/* Wrapper for each bar + year */
+.bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Individual bars */
+.bar {
+    width: 50px;
+    background-color: var(--charcoal);
+    border-radius: 10px 10px 0 0;
+    height: 300px; /* max height */
+    transform: scaleY(0); /* start collapsed */
+    transform-origin: bottom; /* grow from bottom */
+    animation: grow 1s ease-out forwards;
+}
+
+/* Set different heights using scale for each bar */
+.bar-wrapper:nth-child(1) .bar { --scale: 0.3; }
+.bar-wrapper:nth-child(2) .bar { --scale: 0.5; }
+.bar-wrapper:nth-child(3) .bar { --scale: 0.7; }
+.bar-wrapper:nth-child(4) .bar { --scale: 0.85; }
+.bar-wrapper:nth-child(5) .bar { --scale: 1; }
+
+@keyframes grow {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(var(--scale)); }
+}
+
+/* Year labels below bars */
+.bar::after {
+    content: attr(data-year);
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--white);
+    font-size: 1rem;
+    text-align: center;
+}
+
+/* MOBILE STAGGERED ANIMATION */
+@media (max-width: 1023px) {
+    #bar-chart .bar:nth-child(1) { animation-delay: 0s; }
+    #bar-chart .bar:nth-child(2) { animation-delay: 0.3s; }
+    #bar-chart .bar:nth-child(3) { animation-delay: 0.6s; }
+    #bar-chart .bar:nth-child(4) { animation-delay: 0.9s; }
+    #bar-chart .bar:nth-child(5) { animation-delay: 1.2s; }
+}
+
+/* RESPONSIVE STYLES */
+@media (max-width: 1023px) {
+    .results-wrapper {
+        flex-direction: column;
         gap: 2rem;
-        justify-items: start;
+        align-items: flex-start;
     }
 
-    /* Row 1 */
-    .strategic-growth { order: 1; }
-    .high-impact { order: 2; }
-    .business-acceleration { order: 3; }
+    #results table,
+    #bar-chart {
+        width: 100%;
+        max-width: 400px;
+    }
 
-    /* Row 2 */
-    .digital-transformation { order: 4; }
-    .exclusive-executive { order: 5; }
-    .corporate-innovation { order: 6; }
+    #results {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #results table,
+    #bar-chart {
+        max-width: 100%;
+    }
 }
 
-/* MEDIA QUERIES: NAV */
+/* TABLET (800–1023px): 2 Columns, bars next to table and aligned top */
+@media (min-width: 800px) and (max-width: 1023px) {
+    .results-wrapper {
+        flex-direction: row;
+        gap: 2rem;
+        align-items: flex-start; /* top alignment */
+        justify-content: flex-start;
+    }
+
+    .profits-wrapper,
+    .growth-wrapper {
+        flex: 1;
+        min-width: 0;
+    }
+
+    #bar-chart {
+        transform: none !important; /* remove desktop offset */
+        align-self: flex-start;      /* align top with table */
+    }
+
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: auto;
+        gap: 1rem;
+    }
+    .service-card:nth-of-type(1) { grid-column: 1; grid-row: 1; }
+    .service-card:nth-of-type(5) { grid-column: 1; grid-row: 2; }
+    .service-card:nth-of-type(4) { grid-column: 1; grid-row: 3; }
+    .service-card:nth-of-type(3) { grid-column: 2; grid-row: 1; }
+    .service-card:nth-of-type(2) { grid-column: 2; grid-row: 2; }
+    .service-card:nth-of-type(6) { grid-column: 2; grid-row: 3; }
+}
+
+/* DESKTOP (1024px+) 3 Columns */
+@media (min-width: 1024px) {
+    #expertise.container,
+    #services.container {
+        width: 80%;
+        margin: 0 auto;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto auto;
+        gap: 1.25rem;
+    }
+
+    .service-card:nth-of-type(1) { grid-column: 1; grid-row: 1; }
+    .service-card:nth-of-type(2) { grid-column: 1; grid-row: 2; }
+    .service-card:nth-of-type(3) { grid-column: 2; grid-row: 1; }
+    .service-card:nth-of-type(4) { grid-column: 2; grid-row: 2; }
+    .service-card:nth-of-type(5) { grid-column: 3; grid-row: 1; }
+    .service-card:nth-of-type(6) { grid-column: 3; grid-row: 2; }
+
+    #innovation {
+        height: 90vh;
+    }
+
+    #expertise h2 {
+        font-size: 2rem;
+    }
+
+    #expertise p {
+        font-size: 1.25rem;
+        line-height: 1.7;
+        max-width: 60ch;
+    }
+}
+
+/* CONTACT US SECTION */
+#contact-us {
+    background-color: #000; /* black background */
+    color: #fff; /* white text */
+    padding: 4rem 1rem;
+}
+
+#contact-us .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#contact-us h2 {
+    text-align: left;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+#contact-us p {
+    text-align: left;
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.contact-form {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.contact-form .form-left,
+.contact-form .form-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contact-form label {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    color: #fff;
+}
+
+.contact-form input,
+.contact-form textarea {
+    background-color: #fff; /* white boxes */
+    border: 1px solid #fff; /* initial white border */
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 0; /* squared corners */
+    outline: none;
+    transition: border 0.3s ease;
+    color: #000; /* text inside input */
+    resize: none;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border: 2px solid var(--blue); /* blue outline on focus */
+}
+
+.contact-form textarea {
+    min-height: 120px;
+}
+
+.contact-form button {
+    background-color: var(--blue);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1rem;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+    background-color: var(--red);
+}
+
+footer {
+    background-color: #000;       /* black background */
+    padding: 0.5rem 0;            /* less padding, moves content lower */
+    display: flex;
+    flex-direction: column;
+    align-items: center;          /* center horizontally */
+    justify-content: flex-end;    /* push text toward bottom */
+    text-align: center;           /* center text */
+    gap: 0.1rem;                  /* smaller space between lines */
+    color: #fff;
+    font-size: 0.75rem;           /* smaller text */
+}
+
+footer p {
+    margin: 0;                     /* remove default margins */
+}
+
+footer a {
+    color: var(--blue);
+    text-decoration: underline;
+}
+
+
+
+/* Responsive */
+@media (max-width: 1023px) {
+    .contact-form {
+        flex-direction: column;
+    }
+}
+
+/* NAV DESKTOP */
 @media (min-width: 800px) {
     .nav-links {
         display: flex;
         flex-direction: row;
         width: auto;
     }
-    .nav-links li {
-        border: none;
-    }
+    .nav-links li { border: none; }
     .nav-links li a {
         padding: 0.5rem 1rem;
         color: var(--blue);
     }
-    .hamburger {
-        display: none;
-    }
+    .hamburger { display: none; }
 }
 
-/* INNOVATION & CONTAINERS LARGE */
+/* TYPOGRAPHY */
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+
 @media (min-width: 1024px) {
-    #innovation {
-        height: 90vh;
-    }
-    h1 {
-        font-size: 3rem;
-    }
-    h2 {
-        font-size: 2rem;
-    }
-    h3 {
-        font-size: 1.5rem;
-    }
+    h1 { font-size: 3rem; }
+    h2 { font-size: 2rem; }
+    h3 { font-size: 1.5rem; }
+
     .container {
         width: 80%;
-    }
-
-    #expertise.container {
-        width: 100%;
-        max-width: none;
-        margin: 0;
-        padding-left: 8rem;
-        padding-right: 20rem;
-        text-align: left;
-    }
-    #expertise h2 {
-        margin-bottom: 1rem;
-        font-weight: 700;
-        font-size: 2rem;
-        color: black;
-    }
-    #expertise p {
-        font-size: 1.25rem;
-        line-height: 1.7;
-        color: #333;
-        max-width: 60ch;
     }
 }
